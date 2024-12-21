@@ -1,0 +1,131 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  background: url(https://media.istockphoto.com/id/1354982067/es/vector/cielo-estrellado-fondo-nocturno-negro-con-estrella-espacio-de-galaxia-estrellada-textura-de.jpg?s=612x612&w=0&k=20&c=hXBS72dkHQbFKqu5MYZfnd41ZNxisgnvCVqffoXfqgs=)
+}
+
+/* Contenedor Principal */
+.container {
+  background: rgba(2, 16, 11, 0.553);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  width: 400px;
+  position: relative;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.container input::placeholder {
+  color: rgb(0, 0, 0);
+}
+
+/* Alternar Botones */
+.toggle-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.toggle-buttons button {
+  flex: 1;
+  margin: 5px;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.toggle-buttons button.active {
+  border-bottom: 2px solid #0e0e0f;
+}
+
+/* Formularios */
+.form {
+  display: none;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.form.active {
+  display: block;
+}
+
+input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+button[type="submit"] {
+  width: 90%;
+  padding: 10px;
+  background: #030303;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background: #cfd2d4;
+}
+
+/* Mensajes */
+.message {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+      }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+      }
+}
+
+.recuerdame {
+  display: flex;
+  width: 60%;
+  margin-top: 0;
+  justify-content: center;
+}
+
+.recuerdame-caja h5 {
+  font-weight: normal;
+}
+
+.recuerdame {
+  display: flex;
+  gap: 5px;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background:#9d3939;
+}
+::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 12px;
+  border: 3px solid #121212;
+}

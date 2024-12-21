@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego del Ahorcado con Fondo Animado</title>
+    <style>
+        /* Fondo Animado */
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        .sky {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: black;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle 1.5s infinite alternate;
+        }
+
+        .moon { 
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 40% 40%, #fff 60%, #f5f5f5 90%);
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Reloj */
+        #reloj {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            font-size: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        /* Juego del Ahorcado */
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            color: white;
+            width: 300px;
+        }
+
+        .word {
+            font-size: 1.5rem;
+            letter-spacing: 0.3rem;
+            margin: 15px 0;
+        }
+
+        .message {
+            font-size: 1.2rem;
+            margin-top: 15px;
+        }
+
+        .keyboard button {
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            border: none;
+            padding: 8px 12px;
+            margin: 5px;
+            font-size: 0.9rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .keyboard button:hover {
+            background-color: #4f6c8b;
+        }
+
+        .figure {
+            position: relative;
+            width: 150px;
+            height: 200px;
+            margin: 0 auto;
+        }
+
+        .figure-part {
+            position: absolute;
+            background-color: #ffffff;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .figure-part.hidden {
+            opacity: 0;
+        }
+
+        .head {
+            top: 10px;
+            left: 40px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .body {
+            top: 50px;
+            left: 65px;
+            width: 8px;
+            height: 80px;
+        }
+
+        .arm.left {
+            top: 50px;
+            left: 20px;
+            width: 40px;
+            height: 8px;
+            transform: rotate(-45deg);
+            transform-origin: right;
+        }
+
+        .arm.right {
+            top: 50px;
+            left: 75px;
+            width: 40px;
+            height: 8px;
+            transform: rotate(45deg);
+            transform-origin: left;
+        }
+
+        .leg.left {
+            top: 130px;
+            left: 20px;
+            width: 40px;
+            height: 8px;
+            transform: rotate(-45deg);
+            transform-origin: right;
+        }
+
+        .leg.right {
+            top: 130px;
+            left: 75px;
+            width: 40px;
+            height: 8px;
+            transform: rotate(45deg);
+            transform-origin: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="sky">
+        <div class="moon"></div>
+        <div id="reloj"></div>
+        <script>
+            const numStars = 150;
+            const body = document.body;
+
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.top = `${Math.random() * window.innerHeight}px`;
+                star.style.left = `${Math.random() * window.innerWidth}px`;
+                star.style.animationDuration = `${Math.random() * 1 + 0.5}s`;
+                body.appendChild(star);
+            }
+
+            // Reloj
+            function actualizarReloj() {
+                const now = new Date();
+                const horas = now.getHours().toString().padStart(2, '0');
+                const minutos = now.getMinutes().toString().padStart(2, '0');
+                const segundos = now.getSeconds().toString().padStart(2, '0');
+                document.getElementById('reloj').textContent = `${horas}:${minutos}:${segundos}`;
+            }
+            setInterval(actualizarReloj, 1000);
+            actualizarReloj();
+        </script>
+    </div>
+
+    <div class="container">
+        <div class="figure">
+            <div class="figure-part head hidden"></div>
+            <div class="figure-part body hidden"></div>
+            <div class="figure-part arm left hidden"></div>
+            <div class="figure-part arm right hidden"></div>
+            <div class="figure-part leg left hidden"></div>
+            <div class="figure-part leg right hidden"></div>
+        </div>
+        <div class="word" id="word"></div>
+        <div class="keyboard" id="keyboard"></div>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        const words = ["javascript", "programador", "computadora", "desarrollador", "algoritmo"];
+        const word = words[Math.floor(Math.random() * words.length)];
+        const wordContainer = document.getElementById("word");
+        const keyboard = document.getElementById("keyboard");
+        const message = document.getElementById("message");
+        const figureParts = document.querySelectorAll(".figure-part");
+
+        let guessedWord = Array(word.length).fill("_");
+        let mistakes = 0;
+
+        function renderWord() {
+            wordContainer.textContent = guessedWord.join(" ");
+        }
+
+        function showMessage(text) {
+            message.textContent = text;
+        }
+
+        function checkWinOrLose() {
+            if (guessedWord.join("") === word) {
+                showMessage("¡Ganaste! 🎉");
+                keyboard.innerHTML = "";
+            } else if (mistakes === figureParts.length) {
+                showMessage(`Perdiste la palabra era: ${word}`);
+                keyboard.innerHTML = "";
+            }
+        }
+
+        function handleGuess(letter) {
+            if (word.includes(letter)) {
+                for (let i = 0; i < word.length; i++) {
+                    if (word[i] === letter) {
+                        guessedWord[i] = letter;
+                    }
+                }
+            } else {
+                figureParts[mistakes].classList.remove("hidden");
+                mistakes++;
+            }
+
+            renderWord();
+            checkWinOrLose();
+        }
+
+        function createKeyboard() {
+            const letters = "abcdefghijklmnopqrstuvwxyz";
+            letters.split("").forEach(letter => {
+                const button = document.createElement("button");
+                button.textContent = letter;
+                button.onclick = () => {
+                    button.disabled = true;
+                    handleGuess(letter);
+                };
+                keyboard.appendChild(button);
+            });
+        }
+
+        renderWord();
+        createKeyboard();
+    </script>
+</body>
+</html>
